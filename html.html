@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toko 3 Putra · Snack Premium</title>
+  <!-- Font & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="header-left">
+    <div class="logo">Toko <span>3 Putra</span></div>
+    <div class="cart-icon" onclick="toggleCart()">
+      <i class="fas fa-shopping-bag"></i>
+      <span class="cart-badge" id="cartCount">0</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <a href="#home">Beranda</a>
+    <a href="#katalog">Produk</a>
+    <a href="#best">Best Seller</a>
+    <a href="#terlaris">Terlaris</a>
+    <a href="#rekom">Rekomendasi</a>
+    <a href="#tentang">Tentang</a>
+    <a href="#kontak">Kontak</a>
+    <div class="search-bar">
+      <input type="text" placeholder="Cari snack..." id="searchInput" />
+      <button onclick="searchProduct()"><i class="fas fa-search"></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO SLIDER -->
+<section class="hero-slider" id="home">
+  <div class="slide active" style="background-image: url('https://i.pinimg.com/1200x/3f/b0/1e/3fb01e2f9e0af0a6d9b7a1685fce342b.jpg');">
+    <div class="slide-content"><h2>🔥 Promo Snack Terlaris</h2><p>Nikmati kelezatan keripik & snack premium</p></div>
+  </div>
+  <div class="slide" style="background-image: url('https://i.pinimg.com/1200x/f1/75/10/f17510b23268888b6d95853697b730a0.jpg');">
+    <div class="slide-content"><h2>💰 Diskon Mingguan</h2><p>Harga spesial setiap minggu</p></div>
+  </div>
+  <div class="slide" style="background-image: url('https://i.pinimg.com/1200x/3f/e6/78/3fe678ed5ba0ba40ac1d780442350334.jpg');">
+    <div class="slide-content"><h2>⭐ Produk Favorit</h2><p>Pilihan pelanggan sejati</p></div>
+  </div>
+  <button class="slider-btn prev" onclick="changeSlide(-1)">‹</button>
+  <button class="slider-btn next" onclick="changeSlide(1)">›</button>
+  <div class="dots" id="dotsContainer"></div>
+</section>
+
+<!-- SAMBUTAN -->
+<section class="sambutan" id="tentang">
+  <div class="sambutan-box">
+    <h1>Selamat Datang di Toko 3 Putra</h1>
+    <p>Selamat datang di Toko 3 Putra. Kami hadir untuk memenuhi kebutuhan Anda akan berbagai macam snack dan makanan ringan berkualitas dengan harga yang terjangkau. Melalui platform e-commerce ini kami berkomitmen memberikan kemudahan berbelanja secara online dengan produk yang selalu fresh, pelayanan yang ramah, serta proses transaksi yang aman dan terpercaya.</p>
+    <p>Kami berharap setiap produk yang kami tawarkan dapat menemani waktu santai, berkumpul bersama keluarga, teman maupun sebagai camilan favorit sehari-hari. Terima kasih atas kepercayaan yang telah diberikan kepada Toko 3 Putra. Selamat berbelanja dan semoga Anda menemukan snack favorit sesuai selera Anda.</p>
+  </div>
+</section>
+
+<!-- KATALOG PRODUK -->
+<section class="container" id="katalog">
+  <h2 class="section-title">📦 Katalog <span>Produk</span></h2>
+  <div class="product-grid" id="productGrid"></div>
+</section>
+
+<!-- BEST SELLER -->
+<section class="container" id="best">
+  <h2 class="section-title">🔥 Best <span>Seller</span></h2>
+  <div class="best-grid" id="bestGrid"></div>
+</section>
+
+<!-- TERLARIS -->
+<section class="container" id="terlaris" style="background: #f4e9df; border-radius: 60px; padding: 2rem 1.5rem;">
+  <h2 class="section-title">⭐ Terlaris</h2>
+  <div class="terlaris-grid" id="terlarisGrid"></div>
+</section>
+
+<!-- REKOMENDASI SLIDER -->
+<section class="container" id="rekom">
+  <h2 class="section-title">✨ Rekomendasi</h2>
+  <div class="rekom-slider" id="rekomSlider"></div>
+</section>
+
+<!-- KERANJANG PANEL -->
+<div class="cart-panel" id="cartPanel">
+  <h2><i class="fas fa-shopping-bag"></i> Keranjang</h2>
+  <div id="cartItems"></div>
+  <div class="cart-total" id="cartTotal">Total: Rp0</div>
+  <div class="cart-actions">
+    <button class="btn-checkout" onclick="openCheckout()">Lanjut Checkout</button>
+    <button class="btn-reset" onclick="resetCart()">Reset</button>
+    <button onclick="toggleCart()" style="background:transparent;border:1px solid white;color:white;">Tutup</button>
+  </div>
+</div>
+
+<!-- CHECKOUT SECTION -->
+<section class="container" id="checkoutSection" style="display:none;">
+  <div class="form-checkout" id="checkoutForm">
+    <h2 style="color:var(--maroon);">🧾 Form Pemesanan</h2>
+    <input type="text" id="nama" placeholder="Nama Lengkap" />
+    <input type="text" id="alamat" placeholder="Alamat Lengkap" />
+    <input type="text" id="hp" placeholder="Nomor Handphone" />
+    <input type="text" id="kodepos" placeholder="Kode Pos" />
+    <textarea id="catatan" rows="2" placeholder="Catatan Pesanan"></textarea>
+    <button class="btn-submit" onclick="showPayment()">Lanjut Pembayaran</button>
+  </div>
+  
+  <div id="paymentOptions" style="display:none; text-align:center; margin-top: 2rem;">
+    <h3 style="color:var(--maroon);">Pilih Metode Pembayaran</h3>
+    <div class="payment-options">
+      <div class="payment-card" onclick="processPayment('Cash')">
+        <div class="icon">💵</div>
+        <h4>Cash</h4>
+        <p>Bayar langsung</p>
+      </div>
+      <div class="payment-card" onclick="processPayment('BNI')">
+        <div class="icon">🏦</div>
+        <h4>Transfer BNI</h4>
+        <p>1980211407</p>
+        <p>a.n Ikhsan Firmansyah</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Payment Success Modal -->
+  <div id="paymentSuccess" style="display:none; text-align:center; padding: 3rem 0;">
+    <div style="background: white; border-radius: 40px; padding: 3rem; box-shadow: var(--shadow); max-width: 500px; margin: 0 auto;">
+      <div style="font-size: 5rem; color: #4CAF50;">✅</div>
+      <h2 style="color: var(--maroon); margin: 1rem 0;">Pembayaran Berhasil!</h2>
+      <p style="color: #555;">Terima kasih telah berbelanja di Toko 3 Putra.</p>
+      <p style="color: #555;">Pesanan Anda akan segera diproses.</p>
+      <button onclick="resetAll()" style="background: var(--maroon); color: white; border: none; padding: 0.8rem 2.5rem; border-radius: 60px; font-weight: 700; margin-top: 1rem; cursor: pointer;">Kembali Berbelanja</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" id="kontak">
+  <div class="footer-grid">
+    <div><h3>📞 Kontak</h3><p>WhatsApp: 083895006424</p><p>Email: ikhsanfirmansyah359@gmail.com</p><p>Alamat: Jl. Cikancung desa mandalasari</p></div>
+    <div><h3>Ikuti Kami</h3><div class="social"><a href="#"><i class="fab fa-whatsapp"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div></div>
+  </div>
+  <p style="margin-top:2rem;text-align:center;opacity:0.6;">© 2026 Toko 3 Putra · Snack premium</p>
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+<script src="script.js"></script>
+</body>
+</html>
